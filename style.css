@@ -1570,6 +1570,9 @@
             .topbar-logo {
                 font-size: 1.1rem;
             }
+                .topbar-center {
+                display: none;
+            }
 
             .main-content {
                 padding: 1rem 0.8rem;
