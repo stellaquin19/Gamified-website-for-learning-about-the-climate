@@ -853,6 +853,8 @@
             font-size: 0.9rem;
             transition: transform 0.15s, box-shadow 0.15s;
             user-select: none;
+            touch-action: none;
+            -webkit-user-select: none;
         }
 
         .drag-word:active {
