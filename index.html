@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logowakeup.jpg">
+    <title>Weather expert | Wake up generation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-logo">☀️ Wake up Generation</div>
+        <div class="topbar-center">⛅ Weather Expert</div>
+        <div class="topbar-right">
+            <div class="points-badge">⭐ <span id="points-display">0</span> pts</div>
+            <div class="streak-badge">🔥 <span id="streak-display">0</span></div>
+            <div class="user-tag" id="user-tag">Player</div>
+        </div>
+    </div>
+
+    <!-- ===================== WELCOME ===================== -->
+    <div id="welcome-screen">
+        <div class="sky-bg">
+            <div class="cloud-deco c1"></div>
+            <div class="cloud-deco c2"></div>
+            <div class="cloud-deco c3"></div>
+        </div>
+        <div class="sun-main"></div>
+        <h1 class="welcome-title">⛅ Weather Expert</h1>
+        <p class="welcome-sub">¿Estás listo para hacer esta misión?🌍</p>
+        <div class="welcome-card">
+            <h3>🌟 What's your name, hero?</h3>
+            <input class="name-input" id="player-name" type="text" placeholder="Write your name..." maxlength="20"
+                autocomplete="off">
+            <button class="btn-start" onclick="startApp()">Start the Adventure! 🚀</button>
+        </div>
+    </div>
+
+    <!-- ===================== MAIN APP ===================== -->
+    <div id="app">
+        <!-- PROGRESS BAR -->
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Your Progress 🗺️</span>
+                <span id="progress-pct">0% complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- HERO / VIDEO INTRO -->
+        <div class="hero-section" id="hero-section">
+            <p class="hero-msg" id="welcome-msg">Welcome, Explorer! 🌟</p>
+            <div class="video-placeholder">
+                <video controls autoplay muted loop playsinline
+                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                    <source src="assets/video1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-story-intro">
+                <p>⚠️ <span class="suspense">URGENT MISSION!</span> Arturo and his four friends — Maya, Leo, Zara, and
+                    Kai — are <strong>TRAPPED</strong> in a mysterious world where the weather controls everything. <br>
+                    🌀
+                    ¡MISIÓN URGENTE! Arturo y sus cuatro amigos —Maya, Leo, Zara y Kai— están ATRAPADOS en un mundo
+                    misterioso donde el clima lo controla todo. 🌀
+                </p>
+                <br>
+                <p>Each place they visit has a <strong>different climate</strong>, and only the right weather expert can
+                    guide them safely through. That weather expert... <strong>is YOU!</strong> 🧑‍🔬 <br>Cada lugar que
+                    visitan tiene un clima diferente, y solo el experto en meteorología adecuado puede guiarlos con
+                    seguridad. ¡Ese experto en meteorología... eres TÚ! 🧑‍🔬 </p>
+                <br>
+
+                <p>Do you have what it takes to save them? The clock is ticking... ⏰ <br> ¿Tienes lo que se necesita
+                    para salvarlos? El tiempo se acaba...</p>
+            </div>
+            <button class="btn-yes" onclick="scrollToContent()">Yes, I'll save them! 💪</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content" id="main-content">
+
+            <!-- NAV TABS -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('chapters')">📖 Chapters</button>
+                <button class="nav-tab" onclick="showTab('vocab')">📚 Vocabulary</button>
+                <button class="nav-tab" onclick="showTab('achievements')">🏆 Achievements</button>
+                <button class="nav-tab" onclick="showTab('resources')">🔗 Resources</button>
+            </div>
+
+            <!-- ===== CHAPTERS TAB ===== -->
+            <div id="tab-chapters" class="tab-panel active">
+
+                <!-- CHAPTER 1: SUNNY -->
+                <div class="chapter-card ch-sunny" id="ch1">
+                    <div class="chapter-header" data-emoji="☀️" onclick="toggleChapter('ch1-body', 1)">
+                        <div class="chapter-num">Chapter 1</div>
+                        <div class="chapter-title">☀️ Sunny</div>
+                        <div class="chapter-sub">Arturo lands in the desert... and he needs your help FAST!</div>
+                        <div class="chapter-lock" id="ch1-lock">🔓 Open</div>
+                    </div>
+                    <div class="chapter-body" id="ch1-body">
+
+                        <!-- VIDEO -->
+                        <div class="video-placeholder"
+                            style="margin-bottom:1.5rem; background: rgba(253,197,38,0.1); border-color: #FDC526;">
+                            <span class="play-icon">☀️</span>
+                            <div class="video-placeholder">
+                                <video controls autoplay muted loop playsinline
+                                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                                    <source src="assets/videosunny.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+
+                        <!-- STORY DIALOG -->
+                        <div class="story-dialog">
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Help! I am in Cairo, Egypt. It is very hot here!')">🔊</button>
+                                        "Help! I am in <span class="vocab-word"
+                                            onclick="saveWord('Cairo','A city in Egypt ☀️')">Cairo</span>, <span
+                                            class="vocab-word"
+                                            onclick="saveWord('Egypt','A country in Africa 🌍')">Egypt</span>. It is
+                                        very <span class="vocab-word"
+                                            onclick="saveWord('hot','Very warm temperature 🌡️')">hot</span> here!"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Maya</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('What is the weather like, Arturo?')">🔊</button> "What is
+                                        the <span class="vocab-word"
+                                            onclick="saveWord('weather','The condition of the atmosphere 🌤️')">weather</span>
+                                        like, Arturo?"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('It is sunny! The sun is very bright. I need water and my sunglasses!')">🔊</button>
+                                        "It is <span class="vocab-word"
+                                            onclick="saveWord('sunny','Bright with sunshine ☀️')">sunny</span>! The
+                                        <span class="vocab-word"
+                                            onclick="saveWord('sun','The star that gives us light and heat ⭐')">sun</span>
+                                        is very bright. I need water and my <span class="vocab-word"
+                                            onclick="saveWord('sunglasses','Glasses to protect eyes from sun 🕶️')">sunglasses</span>!"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Leo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Can we play tennis here? I love tennis!')">🔊</button> "Can
+                                        we play <span class="vocab-word"
+                                            onclick="saveWord('tennis','A sport with a racket and ball 🎾')">tennis</span>
+                                        here? I love tennis!"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('No, Leo! It is too hot. The temperature is 40 degrees! We need to find a cooler place... but HOW?!')">🔊</button>
+                                        "No, Leo! It is too hot. The <span class="vocab-word"
+                                            onclick="saveWord('temperature','How hot or cold it is 🌡️')">temperature</span>
+                                        is 40 degrees! We need to find a cooler place... but <span
+                                            style='color:var(--pink);font-weight:800;'>HOW?!</span> 😨"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHALLENGE 1: MC -->
+                        <div class="challenge-section" id="ch1-c1">
+                            <div class="challenge-title">
+                                <span>🌡️ Challenge 1</span>
+                                <span class="challenge-type-badge">Multiple Choice</span>
+                            </div>
+                            <div class="attempts-dots" id="ch1-c1-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;"><strong>Arturo is in Cairo. The weather
+                                    is sunny and it is 40°C. What should he do first?</strong></p>
+                            <div class="mc-options" id="ch1-mc1">
+                                <div class="mc-option" onclick="checkMC('ch1-mc1',this,false,'ch1-c1')">
+                                    <span class="mc-letter">A</span> Play football outside ⚽
+                                </div>
+                                <div class="mc-option" onclick="checkMC('ch1-mc1',this,false,'ch1-c1')">
+                                    <span class="mc-letter">B</span> Wear a jacket 🧥
+                                </div>
+                                <div class="mc-option" onclick="checkMC('ch1-mc1',this,true,'ch1-c1')">
+                                    <span class="mc-letter">C</span> Drink water and find shade 💧
+                                </div>
+                                <div class="mc-option" onclick="checkMC('ch1-mc1',this,false,'ch1-c1')">
+                                    <span class="mc-letter">D</span> Go for a bike ride 🚴
+                                </div>
+                            </div>
+                            <div class="feedback-msg" id="ch1-c1-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 2: DRAG & DROP -->
+                        <div class="challenge-section" id="ch1-c2"
+                            style="margin-top:1rem; opacity:0.4; pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>☀️ Challenge 2</span>
+                                <span class="challenge-type-badge">Arrastra y suelta</span>
+                            </div>
+                            <div class="attempts-dots" id="ch1-c2-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:0.8rem;">Complete the sentences! Drag the word to
+                                the correct place.</p>
+                            <div class="drag-container">
+                                <div class="drag-sentence">
+                                    In Cairo it is very <span class="drop-zone" id="dz1-1" data-answer="hot"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz1-1','hot','ch1-c2')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    and <span class="drop-zone" id="dz1-2" data-answer="sunny"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz1-2','sunny','ch1-c2')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+                                </div>
+                                <div class="drag-sentence">
+                                    The <span class="drop-zone" id="dz1-3" data-answer="sun"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz1-3','sun','ch1-c2')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    is very bright today.
+                                </div>
+                            </div>
+                            <div class="word-bank" id="wb1">
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'hot')"
+                                    id="dw-hot">hot</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'sunny')"
+                                    id="dw-sunny">sunny</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'sun')"
+                                    id="dw-sun">sun</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'cold')"
+                                    id="dw-cold">cold</span>
+                            </div>
+                            <div class="feedback-msg" id="ch1-c2-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 3: ROLE PLAY -->
+                        <div class="challenge-section" id="ch1-c3"
+                            style="margin-top:1rem; opacity:0.4; pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🎭 Challenge 3</span>
+                                <span class="challenge-type-badge">Role Play</span>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:1rem;">Lee el diálogo, luego<strong>es TU turno!</strong> Escribe la oración completa y luego dilo en voz alta</p>
+                            <div class="roleplay-card">
+                                <div class="roleplay-label">🧑 Arturo says:</div>
+                                <div class="roleplay-text"><button class="audio-btn"
+                                        onclick="speak('What is the weather like today?')">🔊</button> "What is the
+                                    weather like today?"</div>
+                            </div>
+                            <div class="roleplay-your-turn">
+                                <div class="roleplay-label">👤 Your turn! Presiona el botón para escuchar</div>
+                                <div class="roleplay-text">💬 <em>"It is ___. The temperature is ___. You should drink
+                                        ___."</em></div>
+                                <textarea class="type-input" id="rp1-answer" rows="2"
+                                    style="margin-top:0.6rem;resize:none;"></textarea>
+                                <button class="mic-btn" onclick="speakRP('rp1-answer')">🎙️ Say it aloud!</button>
+                            </div>
+                            <button class="btn-check"
+                                onclick="checkRolePlay('rp1-answer','ch1-c3-fb',['sunny','hot','water'],100,'ch1')">Check
+                                My Answer ✅</button>
+                            <div class="feedback-msg" id="ch1-c3-fb"></div>
+                            <div class="reward-badge" id="ch1-reward">
+                                <div class="trophy">🏆</div>
+                                <p>Chapter 1 Complete!</p>
+                                <small>+150 points! You saved Arturo from the heat! ☀️</small>
+                            </div>
+                            <button class="btn-complete" id="ch1-complete" onclick="completeChapter(1)">Next Chapter
+                                ➡️</button>
+                        </div>
+
+                    </div><!-- end ch1-body -->
+                </div><!-- end ch1 -->
+
+                <!-- CHAPTER 2: RAINY -->
+                <div class="chapter-card ch-rainy" id="ch2" style="opacity:0.6; pointer-events:none;">
+                    <div class="chapter-header" data-emoji="🌧️" onclick="toggleChapter('ch2-body', 2)">
+                        <div class="chapter-num">Chapter 2</div>
+                        <div class="chapter-title">🌧️ Rainy</div>
+                        <div class="chapter-sub">Maya is lost in London in a storm... it's getting DANGEROUS!</div>
+                        <div class="chapter-lock" id="ch2-lock">🔒 Complete Chapter 1 first</div>
+                    </div>
+                    <div class="chapter-body" id="ch2-body">
+                        <div class="video-placeholder"
+                            style="margin-bottom:1.5rem;background:rgba(10,172,210,0.07);border-color:#0AACD2;">
+                            <span class="play-icon">🌧️</span>
+                            <div class="video-placeholder">
+                                <video controls autoplay muted loop playsinline
+                                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                                    <source src="assets/videorainy.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="story-dialog">
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Maya</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('I am in London, England! It is raining a lot!')">🔊</button>
+                                        "I am in <span class="vocab-word"
+                                            onclick="saveWord('London','The capital city of England 🇬🇧')">London</span>,
+                                        England! It is <span class="vocab-word"
+                                            onclick="saveWord('raining','Water falling from clouds 🌧️')">raining</span>
+                                        a lot!"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Do you have an umbrella, Maya?')">🔊</button> "Do you have
+                                        an <span class="vocab-word"
+                                            onclick="saveWord('umbrella','A tool to protect from rain ☂️')">umbrella</span>,
+                                        Maya?"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Maya</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('No! I am very wet! The clouds are dark. I cannot ride my bike in this weather!')">🔊</button>
+                                        "No! I am very <span class="vocab-word"
+                                            onclick="saveWord('wet','Covered with water 💧')">wet</span>! The <span
+                                            class="vocab-word"
+                                            onclick="saveWord('clouds','Water droplets in the sky ☁️')">clouds</span>
+                                        are dark. I cannot ride my <span class="vocab-word"
+                                            onclick="saveWord('bike','A bicycle 🚲')">bike</span> in this weather!"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Leo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('This is an emergency! We need a weather expert NOW!')">🔊</button>
+                                        "This is an <span class="vocab-word"
+                                            onclick="saveWord('emergency','A dangerous, urgent situation 🚨')">emergency</span>!
+                                        We need a weather expert <strong>NOW!</strong> 😱"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Maya</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Wait... I hear something. Is someone there?')">🔊</button>
+                                        "Wait... I hear something. Is someone there? 👀 <span
+                                            style='color:var(--pink);font-weight:800;'>..."</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHALLENGE 1: IMAGE + TYPE -->
+                        <div class="challenge-section" id="ch2-c1">
+                            <div class="challenge-title">
+                                <span>🌧️ Challenge 1</span>
+                                <span class="challenge-type-badge">Look & Write</span>
+                            </div>
+                            <div class="attempts-dots" id="ch2-c1-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <div class="img-challenge">
+                                <span class="weather-image">🌧️</span>
+                                <p style="font-size:0.9rem;margin-bottom:0.8rem;">What weather do you see? Write the
+                                    word:</p>
+                            </div>
+                            <div class="type-input-wrap">
+                                <input class="type-input" id="ch2-type1" type="text"
+                                    placeholder="Type the weather word..." autocomplete="off">
+                            </div>
+                            <button class="btn-check"
+                                onclick="checkTypeInput('ch2-type1',['rainy','raining'],'ch2-c1-fb',50,'ch2-c1')">Check
+                                ✅</button>
+                            <div class="feedback-msg" id="ch2-c1-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 2: MAP -->
+                        <div class="challenge-section" id="ch2-c2"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🗺️ Challenge 2</span>
+                                <span class="challenge-type-badge">City Map</span>
+                            </div>
+                            <div class="attempts-dots" id="ch2-c2-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:1rem;"><strong>Maya needs a sunny city to dry her
+                                    clothes! Which city should she travel to?</strong></p>
+                            <div class="map-grid">
+                                <div class="map-city" onclick="checkMap(this, false, 'ch2-c2-fb', 'ch2-c2')">
+                                    <span class="city-flag">🇬🇧</span>
+                                    <div class="city-name">London</div>
+                                    <div class="city-climate">Rainy & Cold</div>
+                                </div>
+                                <div class="map-city" onclick="checkMap(this, true, 'ch2-c2-fb', 'ch2-c2')">
+                                    <span class="city-flag">🇪🇸</span>
+                                    <div class="city-name">Barcelona</div>
+                                    <div class="city-climate">Sunny & Warm</div>
+                                </div>
+                                <div class="map-city" onclick="checkMap(this, false, 'ch2-c2-fb', 'ch2-c2')">
+                                    <span class="city-flag">🇳🇴</span>
+                                    <div class="city-name">Oslo</div>
+                                    <div class="city-climate">Cold & Snowy</div>
+                                </div>
+                                <div class="map-city" onclick="checkMap(this, false, 'ch2-c2-fb', 'ch2-c2')">
+                                    <span class="city-flag">🇮🇸</span>
+                                    <div class="city-name">Reykjavik</div>
+                                    <div class="city-climate">Windy & Cold</div>
+                                </div>
+                            </div>
+                            <div class="feedback-msg" id="ch2-c2-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 3: INTERACTIVE QUESTION -->
+                        <div class="challenge-section" id="ch2-c3"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🤔 Challenge 3</span>
+                                <span class="challenge-type-badge">Think & Choose</span>
+                            </div>
+                            <div class="attempts-dots" id="ch2-c3-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;"><strong>It is raining in London. What
+                                    clothes does Maya need?</strong></p>
+                            <div class="mc-options" id="ch2-mc3">
+                                <div class="mc-option" onclick="checkMC('ch2-mc3',this,false,'ch2-c3')"><span
+                                        class="mc-letter">A</span> T-shirt and shorts 👕</div>
+                                <div class="mc-option" onclick="checkMC('ch2-mc3',this,true,'ch2-c3')"><span
+                                        class="mc-letter">B</span> Rain jacket and boots 🧥</div>
+                                <div class="mc-option" onclick="checkMC('ch2-mc3',this,false,'ch2-c3')"><span
+                                        class="mc-letter">C</span> Swimsuit 👙</div>
+                                <div class="mc-option" onclick="checkMC('ch2-mc3',this,false,'ch2-c3')"><span
+                                        class="mc-letter">D</span> Football jersey ⚽</div>
+                            </div>
+                            <div class="feedback-msg" id="ch2-c3-fb"></div>
+                            <div class="reward-badge" id="ch2-reward">
+                                <div class="trophy">🏆</div>
+                                <p>Chapter 2 Complete!</p>
+                                <small>+150 points! Maya is safe! 🌧️</small>
+                            </div>
+                            <button class="btn-complete" id="ch2-complete" onclick="completeChapter(2)">Next Chapter
+                                ➡️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHAPTER 3: CLOUDY -->
+                <div class="chapter-card ch-cloudy" id="ch3" style="opacity:0.6;pointer-events:none;">
+                    <div class="chapter-header" data-emoji="⛅" onclick="toggleChapter('ch3-body', 3)">
+                        <div class="chapter-num">Chapter 3</div>
+                        <div class="chapter-title">⛅ Cloudy</div>
+                        <div class="chapter-sub">Leo can't see the road ahead in cloudy Amsterdam... mystery alert!
+                        </div>
+                        <div class="chapter-lock" id="ch3-lock">🔒 Complete Chapter 2 first</div>
+                    </div>
+                    <div class="chapter-body" id="ch3-body">
+                        <div class="video-placeholder"
+                            style="margin-bottom:1.5rem;background:rgba(123,143,161,0.07);border-color:#7B8FA1;">
+                            <span class="play-icon">⛅</span>
+                            <div class="video-placeholder">
+                                <video controls autoplay muted loop playsinline
+                                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                                    <source src="assets/videocloudy.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="story-dialog">
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Leo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('I am in Amsterdam, Netherlands. It is so cloudy! I cannot see the sky.')">🔊</button>
+                                        "I am in <span class="vocab-word"
+                                            onclick="saveWord('Amsterdam','Capital city of Netherlands 🇳🇱')">Amsterdam</span>!
+                                        It is so <span class="vocab-word"
+                                            onclick="saveWord('cloudy','The sky is full of clouds ⛅')">cloudy</span>! I
+                                        cannot see the sky."</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Zara</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Is it cold, Leo? Are there many clouds?')">🔊</button> "Is
+                                        it <span class="vocab-word"
+                                            onclick="saveWord('cold','Low temperature, not warm ❄️')">cold</span>, Leo?
+                                        Are there many <span class="vocab-word"
+                                            onclick="saveWord('clouds','White or gray shapes in the sky ☁️')">clouds</span>?"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Leo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Yes! It is gray everywhere. I was riding my bike, but now I stopped. Something is hiding in the clouds!')">🔊</button>
+                                        "Yes! It is gray everywhere. I was riding my <span class="vocab-word"
+                                            onclick="saveWord('bike','A bicycle 🚲')">bike</span>, but now I stopped.
+                                        Something is <span class="vocab-word"
+                                            onclick="saveWord('hiding','Being in a secret place 🫣')">hiding</span> in
+                                        the clouds! 😨"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:#7B8FA1;">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Kai</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Do not panic Leo! Our weather expert is here. They will tell us what to do!')">🔊</button>
+                                        "Do not panic Leo! Our weather expert is here. They will tell us what to do!
+                                        🧑‍🔬"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHALLENGE 1: DRAG & DROP -->
+                        <div class="challenge-section" id="ch3-c1">
+                            <div class="challenge-title">
+                                <span>⛅ Challenge 1</span>
+                                <span class="challenge-type-badge">Drag & Drop</span>
+                            </div>
+                            <div class="attempts-dots" id="ch3-c1-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:0.8rem;">Match the words to complete the sentences!
+                            </p>
+                            <div class="drag-container">
+                                <div class="drag-sentence">
+                                    Today the sky is <span class="drop-zone" id="dz3-1" data-answer="cloudy"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz3-1','cloudy','ch3-c1')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    in Amsterdam.
+                                </div>
+                                <div class="drag-sentence">
+                                    Leo cannot see because there are many <span class="drop-zone" id="dz3-2"
+                                        data-answer="clouds" ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz3-2','clouds','ch3-c1')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+                                </div>
+                            </div>
+                            <div class="word-bank" id="wb3">
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'cloudy')"
+                                    id="dw3-cloudy">cloudy</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'clouds')"
+                                    id="dw3-clouds">clouds</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'sunny')"
+                                    id="dw3-sunny">sunny</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'rain')"
+                                    id="dw3-rain">rain</span>
+                            </div>
+                            <div class="feedback-msg" id="ch3-c1-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 2: MC INTERACTIVE -->
+                        <div class="challenge-section" id="ch3-c2"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🤔 Challenge 2</span>
+                                <span class="challenge-type-badge">Think & Choose</span>
+                            </div>
+                            <div class="attempts-dots" id="ch3-c2-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;"><strong>What do you think Leo should do
+                                    on a cloudy day in Amsterdam?</strong></p>
+                            <div class="mc-options" id="ch3-mc2">
+                                <div class="mc-option" onclick="checkMC('ch3-mc2',this,false,'ch3-c2')"><span
+                                        class="mc-letter">A</span> Go to the beach 🏖️</div>
+                                <div class="mc-option" onclick="checkMC('ch3-mc2',this,true,'ch3-c2')"><span
+                                        class="mc-letter">B</span> Wear a jacket and visit a museum 🏛️</div>
+                                <div class="mc-option" onclick="checkMC('ch3-mc2',this,false,'ch3-c2')"><span
+                                        class="mc-letter">C</span> Play tennis outside 🎾</div>
+                                <div class="mc-option" onclick="checkMC('ch3-mc2',this,false,'ch3-c2')"><span
+                                        class="mc-letter">D</span> Wear sunglasses 🕶️</div>
+                            </div>
+                            <div class="feedback-msg" id="ch3-c2-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 3: ROLE PLAY -->
+                        <div class="challenge-section" id="ch3-c3"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🎭 Challenge 3</span>
+                                <span class="challenge-type-badge">Role Play</span>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:1rem;">Read & respond as the weather expert!</p>
+                            <div class="roleplay-card">
+                                <div class="roleplay-label">👦 Leo asks:</div>
+                                <div class="roleplay-text"><button class="audio-btn"
+                                        onclick="speak('What is the weather like today in Amsterdam?')">🔊</button>
+                                    "What is the weather like today in Amsterdam?"</div>
+                            </div>
+                            <div class="roleplay-your-turn">
+                                <div class="roleplay-label">👤 Your turn!</div>
+                                <div class="roleplay-text">💬 <em>"It is ___ today. The sky is ___ with many ___. You
+                                        should wear a ___."</em></div>
+                                <textarea class="type-input" id="rp3-answer" rows="2"
+                                    placeholder='Try: "It is cloudy today. The sky is gray with many clouds. You should wear a jacket!"'
+                                    style="margin-top:0.6rem;resize:none;"></textarea>
+                                <button class="mic-btn" onclick="speakRP('rp3-answer')">🎙️ Say it aloud!</button>
+                            </div>
+                            <button class="btn-check"
+                                onclick="checkRolePlay('rp3-answer','ch3-c3-fb',['cloudy','clouds','gray','jacket'],100,'ch3')">Check
+                                My Answer ✅</button>
+                            <div class="feedback-msg" id="ch3-c3-fb"></div>
+                            <div class="reward-badge" id="ch3-reward">
+                                <div class="trophy">🏆</div>
+                                <p>Chapter 3 Complete!</p>
+                                <small>+150 points! Leo can see clearly now! ⛅</small>
+                            </div>
+                            <button class="btn-complete" id="ch3-complete" onclick="completeChapter(3)">Next Chapter
+                                ➡️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHAPTER 4: WINDY -->
+                <div class="chapter-card ch-windy" id="ch4" style="opacity:0.6;pointer-events:none;">
+                    <div class="chapter-header" data-emoji="💨" onclick="toggleChapter('ch4-body', 4)">
+                        <div class="chapter-num">Chapter 4</div>
+                        <div class="chapter-title">💨 Windy</div>
+                        <div class="chapter-sub">Zara's map flew away in Chicago! Can she find her way?</div>
+                        <div class="chapter-lock" id="ch4-lock">🔒 Complete Chapter 3 first</div>
+                    </div>
+                    <div class="chapter-body" id="ch4-body">
+                        <div class="video-placeholder"
+                            style="margin-bottom:1.5rem;background:rgba(60,200,168,0.07);border-color:#3CC8A8;">
+                            <span class="play-icon">💨</span>
+                            <div class="video-placeholder">
+                                <video controls autoplay muted loop playsinline
+                                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                                    <source src="assets/videowindy.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="story-dialog">
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:#3CC8A8;">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Zara</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('I am in Chicago, USA! They call it the Windy City and now I know why! It is very windy today!')">🔊</button>
+                                        "I am in <span class="vocab-word"
+                                            onclick="saveWord('Chicago','A big city in the USA 🇺🇸')">Chicago</span>,
+                                        USA! They call it the <span class="vocab-word"
+                                            onclick="saveWord('Windy City','Chicago\'s famous nickname 💨')">Windy
+                                            City</span> and now I know why! It is very <span class="vocab-word"
+                                            onclick="saveWord('windy','A lot of wind in the air 💨')">windy</span>
+                                        today!"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Oh no! What happened to your map, Zara?')">🔊</button> "Oh
+                                        no! What happened to your map, Zara?"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:#3CC8A8;">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Zara</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('The wind took it! I was playing football with some kids and suddenly the wind was so strong! Now I dont know where to go!')">🔊</button>
+                                        "The <span class="vocab-word"
+                                            onclick="saveWord('wind','Moving air 💨')">wind</span> took it! I was
+                                        playing <span class="vocab-word"
+                                            onclick="saveWord('football','A sport with a round ball ⚽')">football</span>
+                                        with some kids and suddenly the wind was so <span class="vocab-word"
+                                            onclick="saveWord('strong','Very powerful 💪')">strong</span>! Now I don't
+                                        know where to go! 😰"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Kai</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Hold on Zara! Dont move! The wind is getting STRONGER... this could be very dangerous...')">🔊</button>
+                                        "Hold on Zara! Don't move! The wind is getting <strong>STRONGER</strong>... this
+                                        could be very <span
+                                            style='color:var(--pink);font-weight:800;'>DANGEROUS</span>... 🌀"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHALLENGE 1: MC -->
+                        <div class="challenge-section" id="ch4-c1">
+                            <div class="challenge-title">
+                                <span>💨 Challenge 1</span>
+                                <span class="challenge-type-badge">Multiple Choice</span>
+                            </div>
+                            <div class="attempts-dots" id="ch4-c1-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;"><strong>What sport is BEST to play on a
+                                    windy day?</strong></p>
+                            <div class="mc-options" id="ch4-mc1">
+                                <div class="mc-option" onclick="checkMC('ch4-mc1',this,false,'ch4-c1')"><span
+                                        class="mc-letter">A</span> Tennis 🎾 (the ball flies away!)</div>
+                                <div class="mc-option" onclick="checkMC('ch4-mc1',this,true,'ch4-c1')"><span
+                                        class="mc-letter">B</span> Kite flying 🪁</div>
+                                <div class="mc-option" onclick="checkMC('ch4-mc1',this,false,'ch4-c1')"><span
+                                        class="mc-letter">C</span> Swimming 🏊</div>
+                                <div class="mc-option" onclick="checkMC('ch4-mc1',this,false,'ch4-c1')"><span
+                                        class="mc-letter">D</span> Football ⚽ (too windy!)</div>
+                            </div>
+                            <div class="feedback-msg" id="ch4-c1-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 2: TYPE -->
+                        <div class="challenge-section" id="ch4-c2"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>💨 Challenge 2</span>
+                                <span class="challenge-type-badge">Fill in the Blank</span>
+                            </div>
+                            <div class="attempts-dots" id="ch4-c2-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <div class="img-challenge">
+                                <span class="weather-image">💨🌳</span>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;">Complete the sentence: "Chicago is very
+                                _____ today. The _____ is very strong!"</p>
+                            <input class="type-input" id="ch4-type1" type="text" placeholder='Write: "windy, wind"'>
+                            <button class="btn-check"
+                                onclick="checkTypeInput('ch4-type1',['windy, wind','windy wind'],'ch4-c2-fb',50,'ch4-c2')">Check
+                                ✅</button>
+                            <div class="feedback-msg" id="ch4-c2-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 3: ROLE PLAY -->
+                        <div class="challenge-section" id="ch4-c3"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🎭 Challenge 3</span>
+                                <span class="challenge-type-badge">Role Play</span>
+                            </div>
+                            <div class="roleplay-card">
+                                <div class="roleplay-label">👧 Zara asks:</div>
+                                <div class="roleplay-text"><button class="audio-btn"
+                                        onclick="speak('What should I do on a very windy day?')">🔊</button> "What
+                                    should I do on a very windy day?"</div>
+                            </div>
+                            <div class="roleplay-your-turn">
+                                <div class="roleplay-label">👤 Your turn! Give Zara advice:</div>
+                                <div class="roleplay-text">💬 <em>"On a windy day, you should ___. Do not ___ because
+                                        ___."</em></div>
+                                <textarea class="type-input" id="rp4-answer" rows="2"
+                                    placeholder='Try: "On a windy day, you should wear a coat. Do not play football because the ball flies away!"'
+                                    style="margin-top:0.6rem;resize:none;"></textarea>
+                                <button class="mic-btn" onclick="speakRP('rp4-answer')">🎙️ Say it aloud!</button>
+                            </div>
+                            <button class="btn-check"
+                                onclick="checkRolePlay('rp4-answer','ch4-c3-fb',['windy','wind','coat','jacket'],100,'ch4')">Check
+                                My Answer ✅</button>
+                            <div class="feedback-msg" id="ch4-c3-fb"></div>
+                            <div class="reward-badge" id="ch4-reward">
+                                <div class="trophy">🏆</div>
+                                <p>Chapter 4 Complete!</p>
+                                <small>+150 points! Zara is safe! 💨</small>
+                            </div>
+                            <button class="btn-complete" id="ch4-complete" onclick="completeChapter(4)">Next Chapter
+                                ➡️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHAPTER 5: STORMY -->
+                <div class="chapter-card ch-stormy" id="ch5" style="opacity:0.6;pointer-events:none;">
+                    <div class="chapter-header" data-emoji="⛈️" onclick="toggleChapter('ch5-body', 5)">
+                        <div class="chapter-num">Chapter 5</div>
+                        <div class="chapter-title">⛈️ Stormy</div>
+                        <div class="chapter-sub">FINAL MISSION: Kai is trapped in Buenos Aires during a MEGA storm!
+                        </div>
+                        <div class="chapter-lock" id="ch5-lock">🔒 Complete Chapter 4 first</div>
+                    </div>
+                    <div class="chapter-body" id="ch5-body">
+                        <div class="video-placeholder"
+                            style="margin-bottom:1.5rem;background:rgba(255,8,104,0.05);border-color:#FF0868;">
+                            <span class="play-icon">⛈️</span>
+                            <div class="video-placeholder">
+                                <video controls autoplay muted loop playsinline
+                                    style="width:100%; height:100%; object-fit:cover; border-radius: 16px;">
+                                    <source src="assets/videostormy.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="story-dialog">
+                            <div class="dialog-bubble">
+                                <div class="char-avatar" style="border-color:#FF0868;">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Kai</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('HELP! I am in Buenos Aires, Argentina! There is a big storm! There is thunder and lightning!')">🔊</button>
+                                        "<strong style='color:var(--pink)'>HELP!</strong> I am in <span
+                                            class="vocab-word"
+                                            onclick="saveWord('Buenos Aires','Capital city of Argentina 🇦🇷')">Buenos
+                                            Aires</span>, Argentina! There is a big <span class="vocab-word"
+                                            onclick="saveWord('storm','Very bad weather with rain, wind, thunder ⛈️')">storm</span>!
+                                        There is <span class="vocab-word"
+                                            onclick="saveWord('thunder','A loud sound during a storm 🌩️')">thunder</span>
+                                        and <span class="vocab-word"
+                                            onclick="saveWord('lightning','A flash of light in a storm ⚡')">lightning</span>!"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar">🧑</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Arturo</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Stay inside Kai! Do not go outside! This is very dangerous!')">🔊</button>
+                                        "Stay <span class="vocab-word"
+                                            onclick="saveWord('inside','In a building, not outside 🏠')">inside</span>
+                                        Kai! Do not go outside! This is very <span class="vocab-word"
+                                            onclick="saveWord('dangerous','Not safe, can cause harm ⚠️')">dangerous</span>!"
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble">
+                                <div class="char-avatar" style="border-color:#FF0868;">👦</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Kai</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('I was trying to play tennis but the storm came so fast! I can hear the thunder. It is getting closer and closer...')">🔊</button>
+                                        "I was trying to play <span class="vocab-word"
+                                            onclick="saveWord('tennis','A sport with rackets 🎾')">tennis</span> but the
+                                        storm came so fast! I can hear the thunder. It is getting closer and <span
+                                            style='color:var(--pink);font-weight:800;'>closer</span>... 😱"</div>
+                                </div>
+                            </div>
+                            <div class="dialog-bubble right">
+                                <div class="char-avatar" style="border-color:var(--pink);">👧</div>
+                                <div class="bubble-content">
+                                    <div class="bubble-name">Maya</div>
+                                    <div class="bubble-text"><button class="audio-btn"
+                                            onclick="speak('Weather expert, please! Tell Kai exactly what to do! You are our only hope!')">🔊</button>
+                                        "Weather expert, please! Tell Kai exactly what to do! You are our <strong
+                                            style='color:var(--pink)'>only hope!</strong> 🙏"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHALLENGE 1: DRAG & DROP SURVIVAL -->
+                        <div class="challenge-section" id="ch5-c1">
+                            <div class="challenge-title">
+                                <span>⛈️ Challenge 1</span>
+                                <span class="challenge-type-badge">Drag & Drop</span>
+                            </div>
+                            <div class="attempts-dots" id="ch5-c1-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:0.8rem;">Help Kai! Complete the safety rules:</p>
+                            <div class="drag-container">
+                                <div class="drag-sentence">
+                                    During a storm, stay <span class="drop-zone" id="dz5-1" data-answer="inside"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz5-1','inside','ch5-c1')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    the house.
+                                </div>
+                                <div class="drag-sentence">
+                                    Do not stand near a <span class="drop-zone" id="dz5-2" data-answer="tree"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz5-2','tree','ch5-c1')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    during <span class="drop-zone" id="dz5-3" data-answer="lightning"
+                                        ondragover="allowDrop(event)"
+                                        ondrop="dropWord(event,'dz5-3','lightning','ch5-c1')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+                                </div>
+                            </div>
+                            <div class="word-bank" id="wb5">
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'inside')"
+                                    id="dw5-inside">inside</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'tree')"
+                                    id="dw5-tree">tree</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'lightning')"
+                                    id="dw5-lightning">lightning</span>
+                                <span class="drag-word" draggable="true" ondragstart="dragStart(event,'sunny')"
+                                    id="dw5-sunny">sunny</span>
+                            </div>
+                            <div class="feedback-msg" id="ch5-c1-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 2: MC -->
+                        <div class="challenge-section" id="ch5-c2"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🤔 Challenge 2</span>
+                                <span class="challenge-type-badge">Multiple Choice</span>
+                            </div>
+                            <div class="attempts-dots" id="ch5-c2-dots">
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                                <div class="attempt-dot"></div>
+                            </div>
+                            <p style="font-size:0.95rem;margin-bottom:0.8rem;"><strong>After a storm, the friends want
+                                    to travel somewhere safe. Which city has the best weather right now?</strong></p>
+                            <div class="mc-options" id="ch5-mc2">
+                                <div class="mc-option" onclick="checkMC('ch5-mc2',this,false,'ch5-c2')"><span
+                                        class="mc-letter">A</span> Buenos Aires ⛈️ (still stormy)</div>
+                                <div class="mc-option" onclick="checkMC('ch5-mc2',this,false,'ch5-c2')"><span
+                                        class="mc-letter">B</span> London 🌧️ (rainy and cold)</div>
+                                <div class="mc-option" onclick="checkMC('ch5-mc2',this,true,'ch5-c2')"><span
+                                        class="mc-letter">C</span> Barcelona ☀️ (sunny and warm!)</div>
+                                <div class="mc-option" onclick="checkMC('ch5-mc2',this,false,'ch5-c2')"><span
+                                        class="mc-letter">D</span> Chicago 💨 (very windy)</div>
+                            </div>
+                            <div class="feedback-msg" id="ch5-c2-fb"></div>
+                        </div>
+
+                        <!-- CHALLENGE 3: FINAL ROLE PLAY -->
+                        <div class="challenge-section" id="ch5-c3"
+                            style="margin-top:1rem;opacity:0.4;pointer-events:none;">
+                            <div class="challenge-title">
+                                <span>🎭 FINAL Challenge!</span>
+                                <span class="challenge-type-badge">Role Play</span>
+                            </div>
+                            <p style="font-size:0.9rem;margin-bottom:1rem;">This is the FINAL mission! Give Kai ALL the
+                                storm safety advice!</p>
+                            <div class="roleplay-card">
+                                <div class="roleplay-label">👦 Kai says desperately:</div>
+                                <div class="roleplay-text"><button class="audio-btn"
+                                        onclick="speak('Weather expert! There is thunder and lightning! What should I do? I am scared!')">🔊</button>
+                                    "Weather expert! There is thunder and lightning! What should I do? I am scared!"
+                                </div>
+                            </div>
+                            <div class="roleplay-your-turn">
+                                <div class="roleplay-label">👤 Your FINAL answer:</div>
+                                <div class="roleplay-text">💬 <em>"Kai, stay ___! Do not go ___. Close the ___. The
+                                        storm will ___ soon. You are ___!"</em></div>
+                                <textarea class="type-input" id="rp5-answer" rows="3"
+                                    placeholder='Try: "Kai, stay inside! Do not go outside. Close the windows. The storm will stop soon. You are safe!"'
+                                    style="margin-top:0.6rem;resize:none;"></textarea>
+                                <button class="mic-btn" onclick="speakRP('rp5-answer')">🎙️ Say it aloud!</button>
+                            </div>
+                            <button class="btn-check"
+                                onclick="checkRolePlay('rp5-answer','ch5-c3-fb',['inside','storm','safe'],100,'ch5')">Check
+                                My Final Answer ✅</button>
+                            <div class="feedback-msg" id="ch5-c3-fb"></div>
+                            <div class="reward-badge" id="ch5-reward">
+                                <div class="trophy">🎉🏆🎉</div>
+                                <p>YOU DID IT! All chapters complete!</p>
+                                <small>+300 bonus points! Arturo & friends are SAVED! You're a Weather Expert!
+                                    🌟</small>
+                            </div>
+                            <button class="btn-complete" id="ch5-complete" onclick="completeChapter(5)"
+                                style="background:linear-gradient(135deg,var(--pink),#CC0052);">🎉 Finish
+                                Quest!</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POST-IT CHALLENGE -->
+                <div class="postit-challenge" style="margin-top:0.5rem;">
+                    <div class="postit-icon">📝</div>
+                    <div class="postit-text">
+                        <strong>Physical Challenge! 🌟</strong><br>
+                        Toma un post-it para cada tipo de clima (<em>sunny, rainy, cloudy, windy, stormy</em>) y pégalos a tu pared Cuando tu ciudad tenga ese clima, marca un punto.<strong>¡Gana 10 puntos extra por cada punto!
+                            </strong> 🏠
+                    </div>
+                </div>
+
+            </div><!-- end tab-chapters -->
+
+            <!-- ===== VOCABULARY TAB ===== -->
+            <div id="tab-vocab" class="tab-panel">
+                <div class="vocab-section">
+                    <div class="section-title">📚 My Vocabulary List</div>
+                    <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:1.2rem;">¡Haz clic en cualquier palabra de la historia para añadirla aquí! Luego, usa tarjetas didácticas para practicar. 🃏 🃏</p>
+
+                    <!-- Default vocab -->
+                    <div class="vocab-grid" id="vocab-grid">
+                        <div class="vocab-card-item" onclick="reviewWord('sunny','Bright with sunshine ☀️','☀️')">
+                            <span class="word-emoji">☀️</span>
+                            <div class="word-en">sunny</div>
+                            <div class="word-def">Bright with sunshine</div>
+                        </div>
+                        <div class="vocab-card-item"
+                            onclick="reviewWord('rainy','Water falling from clouds 🌧️','🌧️')">
+                            <span class="word-emoji">🌧️</span>
+                            <div class="word-en">rainy</div>
+                            <div class="word-def">Water falling from clouds</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('cloudy','The sky is full of clouds ⛅','⛅')">
+                            <span class="word-emoji">⛅</span>
+                            <div class="word-en">cloudy</div>
+                            <div class="word-def">Full of clouds</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('windy','A lot of wind in the air 💨','💨')">
+                            <span class="word-emoji">💨</span>
+                            <div class="word-en">windy</div>
+                            <div class="word-def">A lot of wind</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('stormy','Very bad weather ⛈️','⛈️')">
+                            <span class="word-emoji">⛈️</span>
+                            <div class="word-en">stormy</div>
+                            <div class="word-def">Very bad weather</div>
+                        </div>
+                        <div class="vocab-card-item"
+                            onclick="reviewWord('temperature','How hot or cold it is 🌡️','🌡️')">
+                            <span class="word-emoji">🌡️</span>
+                            <div class="word-en">temperature</div>
+                            <div class="word-def">How hot or cold it is</div>
+                        </div>
+                        <div class="vocab-card-item"
+                            onclick="reviewWord('umbrella','Tool to protect from rain ☂️','☂️')">
+                            <span class="word-emoji">☂️</span>
+                            <div class="word-en">umbrella</div>
+                            <div class="word-def">Protects from rain</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('thunder','Loud sound in a storm 🌩️','🌩️')">
+                            <span class="word-emoji">🌩️</span>
+                            <div class="word-en">thunder</div>
+                            <div class="word-def">Loud sound in a storm</div>
+                        </div>
+                        <div class="vocab-card-item"
+                            onclick="reviewWord('lightning','Flash of light in a storm ⚡','⚡')">
+                            <span class="word-emoji">⚡</span>
+                            <div class="word-en">lightning</div>
+                            <div class="word-def">Flash of light</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('football','A sport with a round ball ⚽','⚽')">
+                            <span class="word-emoji">⚽</span>
+                            <div class="word-en">football</div>
+                            <div class="word-def">Sport with round ball</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('tennis','A sport with a racket 🎾','🎾')">
+                            <span class="word-emoji">🎾</span>
+                            <div class="word-en">tennis</div>
+                            <div class="word-def">Sport with racket & ball</div>
+                        </div>
+                        <div class="vocab-card-item" onclick="reviewWord('bike','A bicycle 🚲','🚲')">
+                            <span class="word-emoji">🚲</span>
+                            <div class="word-en">bike</div>
+                            <div class="word-def">A bicycle</div>
+                        </div>
+                    </div>
+
+                    <div id="saved-words-section" style="margin-top:1.5rem;">
+                        <div class="section-title" style="font-size:1.1rem;">⭐ Words I Saved</div>
+                        <div class="vocab-grid" id="saved-vocab-grid">
+                            <div style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;">
+                                Click yellow words in the story to add them here! 💛
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPACED REPETITION -->
+                <div class="vocab-section" style="margin-top:1rem;">
+                    <div class="section-title">🔄 Flashcard Review</div>
+                    <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:1.2rem;">Click the card to see the
+                        definition. Then rate yourself!</p>
+                    <div class="sr-card" id="sr-card" onclick="flipCard()">
+                        <div class="sr-emoji" id="sr-emoji">☀️</div>
+                        <div class="sr-word" id="sr-word">sunny</div>
+                        <div class="sr-def" id="sr-def">Bright with sunshine ☀️ — "It is sunny in Cairo today!"</div>
+                    </div>
+                    <div class="sr-actions">
+                        <button class="sr-btn hard" onclick="nextCard('hard')">😓 Hard</button>
+                        <button class="sr-btn easy" onclick="nextCard('easy')">😊 Easy!</button>
+                    </div>
+                    <p style="text-align:center;font-size:0.8rem;color:var(--text-light);margin-top:0.5rem;"
+                        id="sr-counter">Card 1 of 12</p>
+                </div>
+            </div>
+
+            <!-- ===== ACHIEVEMENTS TAB ===== -->
+            <div id="tab-achievements" class="tab-panel">
+                <div class="vocab-section">
+                    <div class="section-title">🏆 My Achievements</div>
+                    <div class="achievements-grid">
+                        <div class="achievement locked" id="ach-ch1">
+                            <div class="ach-icon">☀️</div>
+                            <div class="ach-name">Sun Expert</div>
+                            <div class="ach-desc">Complete Chapter 1</div>
+                        </div>
+                        <div class="achievement locked" id="ach-ch2">
+                            <div class="ach-icon">🌧️</div>
+                            <div class="ach-name">Rain Master</div>
+                            <div class="ach-desc">Complete Chapter 2</div>
+                        </div>
+                        <div class="achievement locked" id="ach-ch3">
+                            <div class="ach-icon">⛅</div>
+                            <div class="ach-name">Cloud Watcher</div>
+                            <div class="ach-desc">Complete Chapter 3</div>
+                        </div>
+                        <div class="achievement locked" id="ach-ch4">
+                            <div class="ach-icon">💨</div>
+                            <div class="ach-name">Wind Rider</div>
+                            <div class="ach-desc">Complete Chapter 4</div>
+                        </div>
+                        <div class="achievement locked" id="ach-ch5">
+                            <div class="ach-icon">⛈️</div>
+                            <div class="ach-name">Storm Chaser</div>
+                            <div class="ach-desc">Complete Chapter 5</div>
+                        </div>
+                        <div class="achievement locked" id="ach-vocab">
+                            <div class="ach-icon">📚</div>
+                            <div class="ach-name">Word Collector</div>
+                            <div class="ach-desc">Save 5+ words</div>
+                        </div>
+                        <div class="achievement locked" id="ach-hero">
+                            <div class="ach-icon">🦸</div>
+                            <div class="ach-name">True Hero</div>
+                            <div class="ach-desc">Complete all chapters!</div>
+                        </div>
+                        <div class="achievement locked" id="ach-stars">
+                            <div class="ach-icon">⭐</div>
+                            <div class="ach-name">Star Player</div>
+                            <div class="ach-desc">Earn 500+ points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RESOURCES TAB ===== -->
+            <div id="tab-resources" class="tab-panel">
+                <div class="vocab-section">
+                    <div class="section-title">🔗 Resources & Extras</div>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-type">📺 YouTube Video</div>
+                            <div class="resource-desc">Learn about different types of weather</div>
+                            <a href="https://www.youtube.com/watch?v=gzPA-YKJmVk&pp=ygUSZWwgY2xpbWEgZW4gaW5nbGVz">Click aqui</a>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-type">📥 Download</div>
+                            <div class="resource-name">Weather Flashcards</div>
+                            <div class="resource-desc">Imprime y recorta tus propias flashcards!, recuerda practicar cada dia</div>
+                            <a href="https://drive.google.com/file/d/1ySMV2bnmmPIYHs_TvjM9qPlKEps2maLl/view?usp=sharing" target="_blank">Download</a>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-type">practical exercises</div>
+                            <a href="https://wordwall.net/es/resource/16308642/hows-the-weather/">Click aqui</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end main-content -->
+    </div><!-- end app -->
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">🌟 Word saved!</div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box">
+            <div style="font-size:3rem;" id="modal-emoji">🎉</div>
+            <h3 id="modal-title">Great job!</h3>
+            <p id="modal-body">You're amazing!</p>
+            <button class="modal-close" onclick="closeModal()">Continue! 🚀</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
