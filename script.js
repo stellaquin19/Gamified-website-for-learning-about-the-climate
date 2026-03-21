@@ -7,7 +7,6 @@ let streak = 0;
 let chaptersComplete = 0;
 let savedWords = [];
 let challengeAttempts = {};
-let dragSource = null;
 let dropFills = {};
 let chapterChallenges = {
     'ch1': { needed: 3, done: 0, challenges: ['ch1-c1', 'ch1-c2', 'ch1-c3'] },
@@ -240,67 +239,143 @@ function checkMC(groupId, el, isCorrect, challengeId) {
 }
 
 // ============================
-// DRAG & DROP
+// DRAG & DROP (Desktop + Mobile Touch)
 // ============================
 let currentDrag = null;
+let currentDragEl = null;
+let ghostEl = null;
+
+/* ---- Desktop HTML5 drag ---- */
 function dragStart(e, word) {
-    currentDrag = word;
-    e.dataTransfer.setData('text', word);
+  currentDrag = word;
+  currentDragEl = e.currentTarget;
+  e.dataTransfer.setData('text', word);
+  e.dataTransfer.effectAllowed = 'move';
+  e.currentTarget.style.opacity = '0.45';
 }
+document.addEventListener('dragend', function(e) {
+  if (currentDragEl) currentDragEl.style.opacity = '1';
+});
 function allowDrop(e) {
-    e.preventDefault();
-    e.currentTarget.classList.add('over');
+  e.preventDefault();
+  e.currentTarget.classList.add('over');
 }
 function dropWord(e, dzId, expectedWord, challengeId) {
-    e.preventDefault();
-    const dz = document.getElementById(dzId);
-    dz.classList.remove('over');
-    const word = e.dataTransfer.getData('text') || currentDrag;
-    if (!word) return;
+  e.preventDefault();
+  const dz = document.getElementById(dzId);
+  dz.classList.remove('over');
+  const word = e.dataTransfer.getData('text') || currentDrag;
+  if (!word) return;
+  placeDrop(dz, word, expectedWord, challengeId);
+}
 
-    // Already filled correctly?
-    if (dz.classList.contains('correct')) return;
-
-    dz.textContent = word;
-    dz.classList.add('filled');
-    dropFills[dzId] = word;
-
-    // Check if correct
-    if (word === expectedWord) {
-        dz.classList.add('correct');
-        // Mark source word used
-        const srcEl = document.getElementById('dw-' + word) || document.getElementById('dw3-' + word) || document.getElementById('dw5-' + word);
-        if (srcEl) srcEl.classList.add('used');
-        checkDragComplete(challengeId);
-    } else {
-        dz.classList.add('wrong');
-        setTimeout(() => {
-            dz.textContent = '';
-            dz.classList.remove('filled', 'wrong');
-            dropFills[dzId] = null;
-        }, 900);
-        useAttempt(challengeId);
-        const fbEl = document.getElementById(challengeId + '-fb');
-        fbEl.innerHTML = '❌ Not quite! Try again!';
-        fbEl.className = 'feedback-msg show error';
-    }
+/* ---- Shared drop logic ---- */
+function placeDrop(dz, word, expectedWord, challengeId) {
+  if (dz.classList.contains('correct')) return;
+  dz.textContent = word;
+  dz.classList.add('filled');
+  dropFills[dz.id] = word;
+  if (word === expectedWord) {
+    dz.classList.add('correct');
+    document.querySelectorAll('.drag-word').forEach(el => {
+      if (el.textContent.trim() === word && !el.classList.contains('used')) {
+        el.classList.add('used');
+      }
+    });
+    checkDragComplete(challengeId);
+  } else {
+    dz.classList.add('wrong');
+    setTimeout(() => {
+      dz.textContent = '';
+      dz.classList.remove('filled','wrong');
+      dropFills[dz.id] = null;
+    }, 900);
+    useAttempt(challengeId);
+    const fbEl = document.getElementById(challengeId + '-fb');
+    fbEl.innerHTML = '❌ Not quite! Try again!';
+    fbEl.className = 'feedback-msg show error';
+  }
 }
 
 function checkDragComplete(challengeId) {
-    // Find all drop zones in this challenge
-    const section = document.getElementById(challengeId);
-    const dropZones = section.querySelectorAll('.drop-zone');
-    const allCorrect = [...dropZones].every(dz => dz.classList.contains('correct'));
-    if (allCorrect) {
-        const fbEl = document.getElementById(challengeId + '-fb');
-        fbEl.innerHTML = '✅ Excellent! All correct! 🎊';
-        fbEl.className = 'feedback-msg show success';
-        addPoints(50);
-        const ch = challengeId.substring(0, 3);
-        markChallengeComplete(ch, challengeId);
-        checkChapterComplete(ch);
-    }
+  const section = document.getElementById(challengeId);
+  const dropZones = section.querySelectorAll('.drop-zone');
+  const allCorrect = [...dropZones].every(dz => dz.classList.contains('correct'));
+  if (allCorrect) {
+    const fbEl = document.getElementById(challengeId + '-fb');
+    fbEl.innerHTML = '✅ Excellent! All correct! 🎊';
+    fbEl.className = 'feedback-msg show success';
+    addPoints(50);
+    const ch = challengeId.substring(0, 3);
+    markChallengeComplete(ch, challengeId);
+    checkChapterComplete(ch);
+  }
 }
+
+/* ---- Touch drag support ---- */
+function createGhost(text, x, y) {
+  if (ghostEl) ghostEl.remove();
+  ghostEl = document.createElement('div');
+  ghostEl.textContent = text;
+  ghostEl.style.cssText = `
+    position:fixed; z-index:9999; pointer-events:none;
+    background:#FDC526; color:#1A2B3C;
+    border-radius:10px; padding:8px 16px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:1rem;
+    box-shadow:0 8px 24px rgba(0,0,0,0.25);
+    transform:translate(-50%,-50%);
+    left:${x}px; top:${y}px;
+  `;
+  document.body.appendChild(ghostEl);
+}
+
+function initTouchDrag() {
+  document.addEventListener('touchstart', function(e) {
+    const el = e.target.closest('.drag-word');
+    if (!el || el.classList.contains('used')) return;
+    currentDrag = el.textContent.trim();
+    currentDragEl = el;
+    el.style.opacity = '0.45';
+    const t = e.touches[0];
+    createGhost(currentDrag, t.clientX, t.clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!ghostEl || !currentDrag) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    ghostEl.style.left = t.clientX + 'px';
+    ghostEl.style.top  = t.clientY + 'px';
+    document.querySelectorAll('.drop-zone').forEach(dz => dz.classList.remove('over'));
+    ghostEl.style.display = 'none';
+    const under = document.elementFromPoint(t.clientX, t.clientY);
+    ghostEl.style.display = '';
+    if (under && under.classList.contains('drop-zone')) {
+      under.classList.add('over');
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', function(e) {
+    if (!ghostEl || !currentDrag) return;
+    const t = e.changedTouches[0];
+    ghostEl.remove(); ghostEl = null;
+    if (currentDragEl) currentDragEl.style.opacity = '1';
+    document.querySelectorAll('.drop-zone').forEach(dz => dz.classList.remove('over'));
+    ghostEl = null;
+    const under = document.elementFromPoint(t.clientX, t.clientY);
+    if (under && under.classList.contains('drop-zone')) {
+      const section = under.closest('.challenge-section');
+      if (section) {
+        const expectedWord = under.dataset.answer;
+        placeDrop(under, currentDrag, expectedWord, section.id);
+      }
+    }
+    currentDrag = null;
+    currentDragEl = null;
+  }, { passive: true });
+}
+
+initTouchDrag();
 
 // ============================
 // TYPE INPUT
