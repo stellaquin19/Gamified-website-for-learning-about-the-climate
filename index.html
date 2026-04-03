@@ -10,6 +10,9 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -37,9 +40,13 @@
         <p class="welcome-sub">¿Estás listo para hacer esta misión?🌍</p>
         <div class="welcome-card">
             <h3>🌟 What's your name, hero?</h3>
-            <input class="name-input" id="player-name" type="text" placeholder="Write your name..." maxlength="20"
+            <input class="name-input" id="login-username" type="text" placeholder="Write your name..." maxlength="20"
                 autocomplete="off">
-            <button class="btn-start" onclick="startApp()">Start the Adventure! 🚀</button>
+            <p>Piensa y anota una contraseña sencilla, no podrás recuperarla.</p>
+            <input class="name-input" id="login-password" type="password" maxlength="30"
+                autocomplete="off">
+            <button class="btn-start" onclick="loginUser()">Start the Adventure! 🚀</button>
+            <div class="auth-error" id="login-error"></div>
         </div>
     </div>
 
